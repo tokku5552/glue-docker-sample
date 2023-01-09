@@ -24,5 +24,6 @@ localstack:
 	docker compose exec localstack bash
 glue:
 	docker compose exec glue bash
-
+jupyter:
+	open http://127.0.0.1:8888/lab
 
