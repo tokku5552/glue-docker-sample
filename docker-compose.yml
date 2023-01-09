@@ -1,7 +1,7 @@
 version: '3.5'
 services:
-  glue.dev.s3.local:
-    container_name: s3.dev
+  localstack:
+    container_name: glue-docker-sample-localstack
     image: localstack/localstack:0.12.8
     environment:
       - SERVICES=s3
@@ -11,9 +11,9 @@ services:
       - AWS_ACCESS_KEY_ID=test
       - AWS_SECRET_ACCESS_KEY=test
     networks:
-      - glue.dev.network
-  glue.dev.summary:
-    container_name: glue.dev
+      - glue-network
+  glue:
+    container_name: glue-docker-sample-glue
     image: amazon/aws-glue-libs:glue_libs_3.0.0_image_01
     volumes:
       - ./:/home/glue_user/workspace/jupyter_workspace
@@ -31,8 +31,8 @@ services:
       # spark uiのポート
       - 4040:4040
     networks:
-      - glue.dev.network
+      - glue-network
     command: /home/glue_user/jupyter/jupyter_start.sh
 networks:
-  glue.dev.network:
-    name: glue.dev.network
+  glue-network:
+    name: glue-network
